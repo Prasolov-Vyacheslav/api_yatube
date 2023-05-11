@@ -1,3 +1,5 @@
+import textwrap
+
 from django.contrib.auth import get_user_model
 from django.db import models
 
@@ -30,7 +32,12 @@ class Post(models.Model):
     )
 
     def __str__(self):
-        return self.text
+        return (
+            f'{textwrap.shorten(self.text, width=15)}, '
+            f'{self.pub_date}, '
+            f'{self.author.username}, '
+            f'{self.group}'
+        )
 
 
 class Comment(models.Model):
