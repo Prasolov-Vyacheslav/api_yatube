@@ -21,13 +21,12 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = GroupSerializer
 
 
-def get_post(self):
-    return get_object_or_404(Post, pk=self.kwargs.get("post_id"))
-
-
 class CommentViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated, IsAuthorOrReadOnly]
     serializer_class = CommentSerializer
+
+    def get_post(self):
+        return get_object_or_404(Post, pk=self.kwargs.get("post_id"))
 
     def get_queryset(self):
         post = self.get_post()
